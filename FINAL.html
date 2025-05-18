@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Sustainable Pipeline Material Advisor</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f1f8e9;
+      color: #2e7d32;
+      margin: 0;
+      padding: 2rem;
+    }
+    .container {
+      max-width: 700px;
+      margin: auto;
+      background: white;
+      padding: 2rem;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    h1, h2 {
+      text-align: center;
+    }
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+    input, button {
+      padding: 0.8rem;
+      font-size: 1rem;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+    }
+    button {
+      background-color: #66bb6a;
+      color: white;
+      cursor: pointer;
+    }
+    .result {
+      background-color: #c8e6c9;
+      padding: 1rem;
+      margin-top: 1rem;
+      border-radius: 5px;
+    }
+    .info {
+      margin-top: 1rem;
+      background: #e8f5e9;
+      padding: 1rem;
+      border-left: 4px solid #2e7d32;
+    }
+    .image-box {
+      text-align: center;
+      margin-top: 2rem;
+    }
+    .image-box img {
+      max-width: 100%;
+      border-radius: 6px;
+    }
+    ul {
+      padding-left: 1.2rem;
+    }
+    a {
+      color: #2e7d32;
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Sustainable Material Advisor</h1>
+    <p style="text-align:center">Enter a pipeline material code to find a more eco-friendly alternative with supporting technical details.</p>
+
+    <form id="materialForm">
+      <label for="material">Material Code</label>
+      <input id="material" name="material" placeholder="e.g., ASTM A106 GR.B" required />
+      <button type="submit">Find Sustainable Alternative</button>
+    </form>
+
+    <div id="output" class="result" style="display:none;"></div>
+    <div id="infoBox" class="info" style="display:none;"></div>
+
+    <div class="info">
+      <h2>Reference Documents</h2>
+      <ul>
+        <li><a href="FLUIDS CODE LIST.pdf" target="_blank">Fluids Code List</a></li>
+        <li><a href="PIPING MATERIAL SPECIFICATION (1).pdf" target="_blank">Piping Material Specification</a></li>
+        <li><a href="INSULATION, PAINTING AND EXTERNAL FINISHING CODE LIST (1).pdf" target="_blank">Insulation, Painting & Finishing Codes</a></li>
+      </ul>
+    </div>
+
+    <div class="image-box">
+      <h2>Why Choose Sustainable Materials?</h2>
+      <img src="https://images.unsplash.com/photo-1581090700227-1e8b2e91d10b?auto=format&fit=crop&w=800&q=60" alt="Sustainable pipeline" />
+    </div>
+  </div>
+
+  <script>
+    const materialMap = {
+      "ASTM A106 GR.B": {
+        alt: "HDPE (ASTM D3350 PE 4710)",
+        info: "High-density polyethylene is corrosion-resistant, lightweight, and has a longer lifespan. Suitable for water and gas lines with reduced energy use in production."
+      },
+      "CPVC 4120": {
+        alt: "PVC 1120",
+        info: "PVC 1120 offers better environmental performance with improved recyclability and less energy-intensive manufacturing."
+      },
+      "ASTM A312 TP304": {
+        alt: "PTFE-lined Carbon Steel",
+        info: "Combines the strength of carbon steel with the chemical resistance of PTFE, reducing corrosion and extending pipeline life."
+      },
+      "Carbon Steel": {
+        alt: "FBE Coated Carbon Steel",
+        info: "Fusion Bonded Epoxy coating significantly improves corrosion resistance and reduces environmental degradation."
+      },
+      // You can expand this list based on your PDF content
+    };
+
+    document.getElementById('materialForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const input = document.getElementById('material').value.trim();
+      const output = document.getElementById('output');
+      const infoBox = document.getElementById('infoBox');
+
+      if (materialMap[input]) {
+        output.innerHTML = `<strong>Recommended:</strong> ${materialMap[input].alt}`;
+        infoBox.innerHTML = `<strong>Material Insight:</strong> ${materialMap[input].info}`;
+        output.style.display = 'block';
+        infoBox.style.display = 'block';
+      } else {
+        output.innerHTML = 'No sustainable alternative found in our database.';
+        infoBox.innerHTML = '';
+        output.style.display = 'block';
+        infoBox.style.display = 'none';
+      }
+    });
+  </script>
+</body>
+</html>
